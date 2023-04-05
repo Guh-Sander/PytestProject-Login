@@ -1,11 +1,16 @@
 import re
 
-# solicita usuário
-def loginUser_input():
-    print('''Regras:
+# Printa as regras de solicitação
+def regras():
+    rules = ('''Regras:
     O usuário deve ter a primeira letra maiúscula, sem caracteres especiais e sem espaços e com no máximo 30 caracteres.
     A senha deve ter pelo menos 10 caracteres, um caracter especial, um número, ao menos uma letra maiúscula e uma letra minúscula.
+    A mensagem deve ter no máximo 70 caracteres.
     ''')
+    return rules
+
+# Solicita usuário
+def loginUser_input():
     user = input(str("Digite seu usuário: "))
     return user
 
@@ -13,6 +18,11 @@ def loginUser_input():
 def loginPassword_input():
     password = input("Digite sua senha: ")
     return password
+
+# Solicita mensagem para cryptografar:
+def cryptMessage_input():
+    msg = input("Digite a mensagem que deseja criptografar: ")
+    return msg
 
 # Condições para a senha:
 def letra_mai(password):
@@ -81,12 +91,11 @@ def max_trinta_caracter(user):
         return True
 
 def ver_espaco(user):
-    # Verifica se contêm algum espaçamento no nome do usuário, passando letra por letra vendo se alguma delas é espaço.
-    for letras in user:
-        if letras.isspace():
-            return False
-        else:
-            return True
+    # Verifica se contêm algum espaço dentro do nome do usuário.
+    if " " in user:
+        return False
+    else:
+        return True
 
 def ver_caracter(user):
     # Verifica se tem caracteres especiais.
@@ -102,21 +111,47 @@ def ver_maiuscula(user):
         return False
     else:
         return True
+    
+# Condição da mensagem:
+def ver_message(msg):
+    # Verifica se a mensagem possui mais de 70 caracter.
+    if len(msg) > 70:
+        return False
+    else:
+        return True
 
 # Valida condições do usuário:
 def valida_user():
     while True:
         insereUser = loginUser_input()
-        if valida_user(insereUser) and ver_maiuscula(insereUser) and ver_caracter(insereUser) and ver_espaco(insereUser) and max_trinta_caracter(insereUser):
+        if ver_maiuscula(insereUser) and ver_caracter(insereUser) and ver_espaco(insereUser) and max_trinta_caracter(insereUser):
             break
         else:
-            print("Usuário inválido! Deve começar com letra maiúscula, sem caracteres especiais e sem espaços, com no máximo 30 caracteres.")
+            print("Usuário inválido! Deve começar com letra maiúscula, sem caracteres especiais e sem espaços, com no máximo 30 caracteres.\n")
 
 # Valida condições da senha:
 def valida_password():
     while True:
         inserePassword = loginPassword_input()
-        if valida_password(inserePassword) and min_caracter(inserePassword) and caracter_senha(inserePassword) and ver_num(inserePassword) and letra_minu(inserePassword) and letra_mai(inserePassword):
+        if min_caracter(inserePassword) and caracter_senha(inserePassword) and ver_num(inserePassword) and letra_minu(inserePassword) and letra_mai(inserePassword):
             break
         else:
-            print("Senha inválida! Deve ter pelo menos 10 caracteres, um caracter especial, um número, ao menos uma letra maiúscula e uma letra minúscula.")
+            print("Senha inválida! Deve ter pelo menos 10 caracteres, um caracter especial, um número, ao menos uma letra maiúscula e uma letra minúscula.\n")
+
+# Valida condição da mensagem:
+def valida_msg():
+    while True:
+        insereMsg = cryptMessage_input()
+        if ver_message(insereMsg):
+            break
+        else:
+            print("Mensagem inválida! Deve ter no máximo 70 caracteres.\n")
+    
+# Chama as função para exeutar:
+rules = print(regras())
+login = valida_user()
+print("Usuário válido!")
+password = valida_password()
+print("Senha válida!")
+msg = valida_msg()
+print("Mensagem válida e criptografada com sucesso!")
