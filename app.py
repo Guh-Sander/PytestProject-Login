@@ -1,7 +1,7 @@
 from userFuncion import*
 from passwordFuncion import*
 from messageFuncion import*
-from cryptographyFramework import*
+from cryptographyFramework import *
 
 # Printa as regras de solicitação
 def regras():
@@ -39,11 +39,18 @@ def valida_msg():
         else:
             print("Mensagem inválida! Deve ter no máximo 70 caracteres.\n")
     
-# Chama as função para exeutar:
+# Chama as função para executar:
 rules = print(regras())
-user = valida_user()
+user_end = valida_user()
 print("Usuário válido!")
-password = valida_password()
+password_end = valida_password()
 print("Senha válida!")
-message = valida_msg()
+message_end = valida_msg()
 print("Mensagem válida!")
+
+# Escreve um arquivo ".txt":
+initializeWrite()
+# Encripta a mensagem e coloca ela em uma variável:
+encrypt_message = encryptMessage(user_end, password_end, message_end)
+# Salva a mensagem encriptada no arquivo ".txt":
+saveNewLine(encrypt_message)
