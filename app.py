@@ -35,6 +35,12 @@ def valida_msg():
     while True:
         insereMsg = cryptMessage_input()
         if ver_message(insereMsg):
+            # Escreve um arquivo ".txt":
+            initializeWrite()
+            # Encripta a mensagem e coloca ela em uma variável:
+            encrypt_message = encryptMessage(user_end, password_end, insereMsg)
+            # Salva a mensagem encriptada no arquivo ".txt":
+            saveNewLine(encrypt_message)
             break
         else:
             print("Mensagem inválida! Deve ter no máximo 70 caracteres.\n")
@@ -47,10 +53,3 @@ password_end = valida_password()
 print("Senha válida!")
 message_end = valida_msg()
 print("Mensagem válida!")
-
-# Escreve um arquivo ".txt":
-initializeWrite()
-# Encripta a mensagem e coloca ela em uma variável:
-encrypt_message = encryptMessage(user_end, password_end, message_end)
-# Salva a mensagem encriptada no arquivo ".txt":
-saveNewLine(encrypt_message)
